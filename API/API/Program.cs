@@ -2,7 +2,16 @@
 // - Rest Client - Extensão do VSCode
 // - Postman 
 // - Insomnia
+
+public class Endereco {
+        public string Rua { get; set; }
+        public int Numero { get; set; }
+        public string Cep { get; set; }
+}
+
+
 //MINIMAL APIs
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -21,9 +30,20 @@ app.MapGet("/retornar_endereco", () => {
     return endereco;
 });
 
+
+
 //Criar uma funcionalidade para receber informações
 // - Receber informações pela URL
 // - Receber informações pelo corpo da requisição
 // - Guardar as informações em uma lista
+
+app.MapGet("/receber_informacao_url/{nome}", (string nome) => {
+    return $"O nome recebido foi: {nome}";
+});
+
+app.MapPost("/receber_informacao_corpo", (Endereco endereco) => {
+    return $"Endereço recebido: {endereco.Rua}, {endereco.Numero}, {endereco.Cep}";
+});
+
 
 app.Run();

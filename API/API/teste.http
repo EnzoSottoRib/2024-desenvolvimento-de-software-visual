@@ -6,3 +6,16 @@ GET http://localhost:5233/segunda_funcionalidade
 
 ### Testar a terceira funcionalidade
 GET http://localhost:5233/retornar_endereco
+
+### Testar a quarta funcionalidade
+GET http://localhost:5233/receber_informacao_url/Enzo
+
+### Testar a quinta funcionalidade
+POST http://localhost:5233/receber_informacao_corpo
+Content-Type: application/json
+
+{
+    "Rua": "Barigui",
+    "Numero": 3500,
+    "Cep": "01310-200"
+}
