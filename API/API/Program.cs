@@ -3,11 +3,7 @@
 // - Postman 
 // - Insomnia
 
-public class Endereco {
-        public string Rua { get; set; }
-        public int Numero { get; set; }
-        public string Cep { get; set; }
-}
+
 
 
 //MINIMAL APIs
@@ -41,9 +37,16 @@ app.MapGet("/receber_informacao_url/{nome}", (string nome) => {
     return $"O nome recebido foi: {nome}";
 });
 
-app.MapPost("/receber_informacao_corpo", (Endereco endereco) => {
+app.MapPost("/receber_informacao_corpo", ([FromBody] UserInfo endereco) => {
+    listaEndereco.Add(endereco);
     return $"Endereço recebido: {endereco.Rua}, {endereco.Numero}, {endereco.Cep}";
 });
 
 
 app.Run();
+
+public class Endereco {
+        public string Rua { get; set; }
+        public int Numero { get; set; }
+        public string Cep { get; set; }
+}
