@@ -42,6 +42,7 @@ app.MapPost("/receber_informacao_corpo", ([FromBody] UserInfo endereco) => {
     return $"Endereço recebido: {endereco.Rua}, {endereco.Numero}, {endereco.Cep}";
 });
 
+//teste teste teste
 
 app.Run();
 
