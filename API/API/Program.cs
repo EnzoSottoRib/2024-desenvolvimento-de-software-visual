@@ -41,7 +41,14 @@ produtos.Add(new Produto(){
 
 //GET: /produto/listar
 app.MapGet("/produto/listar", () => {
-    return Results.Ok(produtos);
+    if(produtos.Count > 0){
+         return Results.Ok(produtos);
+    }
+    //não precisa do else, pq o return já terminaria a execução 
+    else {
+        return Results.NotFound();
+    }
+   
 });
 
 //GET: /produto/cadastrar
