@@ -3,7 +3,8 @@
 // - Postman 
 // - Insomnia
 
-using API.Models; //equivalente ao "import" de Java
+using API.Models;
+using Microsoft.AspNetCore.Mvc; //equivalente ao "import" de Java
 
 
 //MINIMAL APIs
@@ -51,12 +52,19 @@ app.MapGet("/produto/listar", () => {
    
 });
 
-//GET: /produto/cadastrar
-app.MapPost("/produto/cadastrar/{nome}", (string nome) => {
-    Produto produto = new Produto();
-    produto.Nome = nome;
+app.MapGet("/produto/buscar/{nome}", (string nome) => {
+    foreach(Produto produtoCadastrado in produtos){
+        if(produtoCadastrado.Nome == nome){
+            return Results.Ok(produtoCadastrado);
+        }
+    } return Results.NotFound();
+});
+
+//POST: /produto/cadastrar
+app.MapPost("/produto/cadastrar", ([FromBody] Produto produto) => {
+
     produtos.Add(produto);
-    return Results.Ok(produtos);
+    return Results.Created("", produto);
 });
 
 

@@ -5,7 +5,17 @@ GET http://localhost:5233
 GET http://localhost:5233/produto/listar
 
 ### Cadastrar produto
-POST http://localhost:5233/produto/cadastrar/ArrozDoFeijao
+POST http://localhost:5233/produto/cadastrar/
+Content-Type: application/json 
+
+{
+    "nome" : "Bolacha", 
+    "preco": 3.2,
+    "quantidade": 534
+}
+
+### Buscar produto
+GET http://localhost:5233/produto/buscar/Monitor
 
 ### Testar a quarta funcionalidade
 GET http://localhost:5233/receber_informacao_url/Enzo
