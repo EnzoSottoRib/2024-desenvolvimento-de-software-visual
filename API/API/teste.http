@@ -14,8 +14,10 @@ Content-Type: application/json
     "quantidade": 534
 }
 
+###
+
 ### Buscar produto
-GET http://localhost:5233/produto/buscar/Monitor
+GET http://localhost:5233/produto/buscar/eba33668-ad72-45d0-b7f1-8fbfef7ab2d1
 
 ### Testar a quarta funcionalidade
 GET http://localhost:5233/receber_informacao_url/Enzo

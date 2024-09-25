@@ -14,7 +14,7 @@ var app = builder.Build();
 
 //EndPoints - Funcionalidades dentro das APIs
 //Request - Configurar a URL e o método/verbo HTTP
-//Response - Retornar os dados (json/xml) e 
+//Response - Retornar os dados (json/xml) e códigos de status HTTP
 
 app.MapGet("/", () => "API de Produtos");
 
@@ -52,12 +52,21 @@ app.MapGet("/produto/listar", () => {
    
 });
 
-app.MapGet("/produto/buscar/{nome}", (string nome) => {
+/*app.MapGet("/produto/buscar/{nome}", (string nome) => {
     foreach(Produto produtoCadastrado in produtos){
         if(produtoCadastrado.Nome == nome){
             return Results.Ok(produtoCadastrado);
         }
     } return Results.NotFound();
+});*/
+
+app.MapGet("/produto/buscar/{id}", ([FromRoute] string id) => {
+    //Expressão lambda em C# 
+    Produto? produto = produtos.Find(x => x.Id == id);
+    if (produto == null){
+        return Results.NotFound();
+    }
+    return Results.Accepted();
 });
 
 //POST: /produto/cadastrar
@@ -67,6 +76,26 @@ app.MapPost("/produto/cadastrar", ([FromBody] Produto produto) => {
     return Results.Created("", produto);
 });
 
+app.MapDelete("/produto/deletar/{id}", ([FromRoute] string id) => {
+    Produto? produto = produtos.Find(x => x.Id == id);
+    if (produto == null){
+        return Results.NotFound();
+    }
+    produtos.Remove(produto);
+    return Results.Ok(produto);
+    
+});
+
+app.MapPut("/produto/alterar/{id}", ([FromRoute] string id, [FromBody] Produto produtoAlterado) => {
+Produto? produto = produtos.Find(x => x.Id == id);
+if (produto == null){
+    return Results.NotFound();
+}
+produto.Nome = produtoAlterado.Nome;
+produto.Quantidade = produtoAlterado.Quantidade;
+produto.Preco = produtoAlterado.Preco;
+return Results.Ok(produto);
+});
 
 app.MapGet("/retornar_endereco", () => {
     dynamic endereco = new {
